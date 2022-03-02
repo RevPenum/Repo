@@ -43,19 +43,19 @@ stages:
           - script : |
                 echo building $(qa_build.BuildNumber) with ${{parameters.Region}}
 
-          - ${{ if eq(parameters.pndemeaOrder, true) }}:      
+          - ${{ if contains(parameters.pndemeaorder, true) }}:     
           - template: pndemeaOrder.yml
 
-          - ${{ if eq(parameters.pndemeaOmsApi, true) }}:      
+          - ${{ if contains(parameters.pndemeaOmsApi, true) }}:      
           - template: pndemeaOmsApi.yml
           
-          - ${{ if eq(parameters.pndemeaNotifications, true) }}:      
+          - ${{ if contains(parameters.pndemeaNotifications, true) }}:      
           - template: pndemeaNotifications.yml
 
-          - ${{ if eq(parameters.pndemeaCatalogOmsEod, true) }}:      
+          - ${{ if contains(parameters.pndemeaCatalogOmsEod, true) }}:      
           - template: pndemeaCatalogOmsEod.yml
 
-          - ${{ if eq(parameters.pndemeaInventory, true) }}:      
+          - ${{ if contains(parameters.pndemeaInventory, true) }}:      
           - template: pndemeaInventory.yml
       
           
