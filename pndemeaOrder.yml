@@ -4,17 +4,17 @@
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
 
-parameters:
-- name: Deploy_Application
-  displayName: Deploy_Application
-  type: string
+# parameters:
+# - name: Deploy_Application
+#   displayName: Deploy_Application
+#   type: string
 
-  values:
-   - pndemea-order
-   - pndemea-oms-api
-   - pndemea-notifications
-   - pndemea-catalog-oms-eod
-   - pndemea-inventory
+#   values:
+#    - pndemea-order
+#    - pndemea-oms-api
+#    - pndemea-notifications
+#    - pndemea-catalog-oms-eod
+#    - pndemea-inventory
 
 pool:
   vmImage: ubuntu-latest
