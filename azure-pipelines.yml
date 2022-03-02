@@ -41,9 +41,9 @@ stages:
       steps:
           
          - script : |
-    
+             echo building $(qa_build.BuildNumber) with ${{parameters.Region}}
 
-          - ${{ if contains(parameters.pndemeaOrder, true) }}:   
+      - ${{ if contains(parameters.pndemeaOrder, true) }}:   
         
     - job: pndemeaOrder
       displayName: pndemeaOrderJob
