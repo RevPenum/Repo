@@ -40,8 +40,8 @@ stages:
         displayName : qa_build
         steps:
           
-          - script : |
-                echo building $(qa_build.BuildNumber) with ${{parameters.Region}}
+          # - script : |
+          #       echo building $(qa_build.BuildNumber) with ${{parameters.Region}}
 
           - ${{ if contains(parameters.pndemeaorder, true) }}:     
           - template: pndemeaOrder.yml
