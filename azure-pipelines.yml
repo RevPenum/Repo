@@ -33,25 +33,41 @@ parameters:
   type: boolean
   default: false 
 
-# stages:
-#   - stage : QA
-#       jobs
-#         - job : qa_build
-#           displayName: qa_build
-steps:
-  - script:
-          echo building $(qa_build.BuildNumber) with ${{parameters.Region}}
-  - script: |
-    condition: and(succeeded(), eq('${{ parameters.pndemeaOrder }}', 'true'))
-#  - ${{ if contains(parameters.pndemeaOrder, true) }}:
-  - template: pndemeaOrder.yml
-    # condition: and(succeeded(), eq('${{ parameters.pndemeaOrder }}', 'true'))
+stages:
+  - stage : QA 
+    jobs:
+      - job : qa_build
+        displayName : qa_build
+        steps:
+          
+          - script : |
+                echo building $(qa_build.BuildNumber) with ${{parameters.Region}}
 
+          - ${{ if eq(parameters.pndemeaOrder, true) }}:      
+          - template: pndemeaOrder.yml
 
-  #         - template : pndemeaOrder.yml
+          - ${{ if eq(parameters.pndemeaOmsApi, true) }}:      
+          - template: pndemeaOmsApi.yml
+          
+          - ${{ if eq(parameters.pndemeaNotifications, true) }}:      
+          - template: pndemeaNotifications.yml
+
+          - ${{ if eq(parameters.pndemeaCatalogOmsEod, true) }}:      
+          - template: pndemeaCatalogOmsEod.yml
+
+          - ${{ if eq(parameters.pndemeaInventory, true) }}:      
+          - template: pndemeaInventory.yml
+      
+          
+          #   condition: and(succeeded(), eq('${{ parameters.pndemeaOrder }}', 'true'))
+          # # - ${{ if contains(parameters.pndemeaorder, true) }}:
+          #   - template : pndemeaOrder.yml
+        
+  #       - job :
+            
   #         - ${{ if contains(parameters.pndemeaOmsApi, true) }}:
-  #          echo "Runnning pndemea-oms-api"
-
+  #           - script: echo "Runnning pndemea-oms-api"
+  #         - job :
   #           - template : pndemeaOmsApi.yml
   #         - ${{ if contains(parameters.pndemeaNotifications, true) }}:
   #           - script: echo "Runnning pndemea-notifications"
@@ -65,66 +81,60 @@ steps:
   #           - script: echo "Runnning pndemea-inventory"
   #         - job :
   #           - template : pndemeaInventory.yml
-  # # - stage : DEV 
-   
-  #     steps :
+  # - stage : DEV
+  #   # jobs:
+  #   # - job : dev_build
+  #   #   displayName : dev_build
+  #     steps:
   #     - script : |
   #               echo building $(dev_build.BuildNumber) with ${{parameters.Region}}
-
-  #             - ${{ if contains(parameters.pndemeaorder, true) }}:
-  #               echo "Runnning pndemea-order"
-  #             - job :
-  #               - template : pndemeaOrder.yml
-
-  #             - ${{ if contains(parameters.pndemeaOmsApi, true) }}:
-  #               echo "Runnning pndemea-oms-api"
-  #             - job :
-  #               - template : pndemeaOmsApi.yml
-                
-  #             - ${{ if contains(parameters.pndemeaNotifications, true) }}:
-  #                 echo "Runnning pndemea-notifications"
-  #             - job :
-  #               - template : pndemeaNotifications.yml
-
-  #             - ${{ if contains(parameters.pndemeaCatalogOmsEod, true) }}:
-  #                 echo "Runnning pndemea-catalog-oms-eod"
-  #             - job :
-  #               - template : pndemeaCatalogOmsEod.yml
-
-  #             - ${{ if contains(parameters.pndemeaInventory, true) }}:
-  #               - script: echo "Runnning pndemea-inventory"
-  #             - job :
-  #               - template : pndemeaInventory.yml
+  #       - ${{ if contains(parameters.pndemeaorder, true) }}:
+  #         - script: echo "Runnning pndemea-order"
+  #         - job :
+  #           - template : pndemeaOrder.yml
+  #         - ${{ if contains(parameters.pndemeaOmsApi, true) }}:
+  #           - script: echo "Runnning pndemea-oms-api"
+  #         - job :
+  #           - template : pndemeaOmsApi.yml
+  #         - ${{ if contains(parameters.pndemeaNotifications, true) }}:
+  #           - script: echo "Runnning pndemea-notifications"
+  #         - job :
+  #           - template : pndemeaNotifications.yml
+  #         - ${{ if contains(parameters.pndemeaCatalogOmsEod, true) }}:
+  #           - script: echo "Runnning pndemea-catalog-oms-eod"
+  #         - job :
+  #           - template : pndemeaCatalogOmsEod.yml
+  #         - ${{ if contains(parameters.pndemeaInventory, true) }}:
+  #           - script: echo "Runnning pndemea-inventory"
+  #         - job :
+  #           - template : pndemeaInventory.yml
   # - stage : PREPROD
   #   # jobs:
   #   # - job : preprod_build
   #   #   displayName : preprod_build
-  #   #  steps:
+  #     steps:
   #     - script : |
   #               echo building $(preprod_build.BuildNumber) with ${{parameters.Region}}
-
-  #             - ${{ if contains(parameters.pndemeaorder, true) }}:
-  #               echo "Runnning pndemea-order"
-  #             - job :
-  #               - template : pndemeaOrder.yml
-
-  #             - ${{ if contains(parameters.pndemeaOmsApi, true) }}:
-  #               echo "Runnning pndemea-oms-api"
-  #             - job :
-  #               - template : pndemeaOmsApi.yml
-                
-  #             - ${{ if contains(parameters.pndemeaNotifications, true) }}:
-  #               echo "Runnning pndemea-notifications"
-  #             - job :
-  #               - template : pndemeaNotifications.yml
-  #             - ${{ if contains(parameters.pndemeaCatalogOmsEod, true) }}:
-  #               echo "Runnning pndemea-catalog-oms-eod"
-  #             - job :
-  #               - template : pndemeaCatalogOmsEod.yml
-  #             - ${{ if contains(parameters.pndemeaInventory, true) }}:
-  #             - script: echo "Runnning pndemea-inventory"
-  #             - job :
-  #               - template : pndemeaInventory.yml         
+  #       - ${{ if contains(parameters.pndemeaorder, true) }}:
+  #         - script: echo "Runnning pndemea-order"
+  #         - job :
+  #           - template : pndemeaOrder.yml
+  #         - ${{ if contains(parameters.pndemeaOmsApi, true) }}:
+  #           - script: echo "Runnning pndemea-oms-api"
+  #         - job :
+  #           - template : pndemeaOmsApi.yml
+  #         - ${{ if contains(parameters.pndemeaNotifications, true) }}:
+  #           - script: echo "Runnning pndemea-notifications"
+  #         - job :
+  #           - template : pndemeaNotifications.yml
+  #         - ${{ if contains(parameters.pndemeaCatalogOmsEod, true) }}:
+  #           - script: echo "Runnning pndemea-catalog-oms-eod"
+  #         - job :
+  #           - template : pndemeaCatalogOmsEod.yml
+  #         - ${{ if contains(parameters.pndemeaInventory, true) }}:
+  #           - script: echo "Runnning pndemea-inventory"
+  #         - job :
+  #           - template : pndemeaInventory.yml         
   # - stage : PROD
   #   # jobs:
   #   # - job : prod_build
@@ -133,25 +143,28 @@ steps:
   #     - script : |
   #               echo building $(prod_build.BuildNumber) with ${{parameters.Region}}
   #       - ${{ if contains(parameters.pndemeaorder, true) }}:
-          
+  #         - script: echo "Runnning pndemea-order"
   #         - job :
   #           - template : pndemeaOrder.yml
   #         - ${{ if contains(parameters.pndemeaOmsApi, true) }}:
-            
+  #           - script: echo "Runnning pndemea-oms-api"
   #         - job :
   #           - template : pndemeaOmsApi.yml
   #         - ${{ if contains(parameters.pndemeaNotifications, true) }}:
-            
+  #           - script: echo "Runnning pndemea-notifications"
   #         - job :
   #           - template : pndemeaNotifications.yml
   #         - ${{ if contains(parameters.pndemeaCatalogOmsEod, true) }}:
-            
+  #           - script: echo "Runnning pndemea-catalog-oms-eod"
   #         - job :
   #           - template : pndemeaCatalogOmsEod.yml
   #         - ${{ if contains(parameters.pndemeaInventory, true) }}:
-            
+  #           - script: echo "Runnning pndemea-inventory"
   #         - job :
   #           - template : pndemeaInventory.yml          
+
+
+
 
 
 
