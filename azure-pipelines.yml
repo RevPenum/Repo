@@ -43,7 +43,7 @@ stages:
         - script : |
             echo building $(qa_build.BuildNumber) with ${{parameters.Region}}
 
-          - ${{ if contains(parameters.pndemeaOrder, true) }}:   
+        - ${{ if contains(parameters.pndemeaOrder, true) }}:   
         
     - job: pndemeaOrder
       displayName: pndemeaOrderJob
@@ -51,28 +51,28 @@ stages:
         - script: echo "Runnning pndemea-order" 
         - template: pndemeaOrder.yml 
       
-          - ${{ if contains(parameters.pndemeaOmsApi, true) }}:    
+        - ${{ if contains(parameters.pndemeaOmsApi, true) }}:    
     - job: pndemeaOmsApi
       displayName: pndemeaOmsApiJob
       steps:
         - script: echo "Runnning pndemea-oms-api"
         - template: pndemeaOmsApi.yml
           
-          - ${{ if contains(parameters.pndemeaNotifications, true) }}:  
+        - ${{ if contains(parameters.pndemeaNotifications, true) }}:  
     - job: pndemeaNotifications
       displayName: pndemeaNotificationsJob
       steps:
         - script: echo "Runnning pndemea-notifications"
         - template: pndemeaNotifications.yml
 
-          - ${{ if contains(parameters.pndemeaCatalogOmsEod, true) }}:    
+        - ${{ if contains(parameters.pndemeaCatalogOmsEod, true) }}:    
     - job: pndemeaCatalogOmsEod
       displayName: pndemeaCatalogOmsEod
       steps:
         - script: echo "Runnning pndemeaCatalogOmsEod"  
         - template: pndemeaCatalogOmsEod.yml
 
-          - ${{ if contains(parameters.pndemeaInventory, true) }}:  
+        - ${{ if contains(parameters.pndemeaInventory, true) }}:  
     - job: pndemeaInventory
       displayName: pndemeaInventory
       steps:
