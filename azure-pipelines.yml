@@ -45,9 +45,9 @@ stages:
         #      echo building $(qa_build.BuildNumber) with ${{parameters.Region}}
 
           - script: echo "Runnning pndemea-order" 
-          - template: pndemeaOrder.yml 
+          - template: pndemeaOrder.txt
       
-    #     - ${{ if contains(parameters.pndemeaOmsApi, true) }}:    
+        - ${{ if contains(parameters.pndemeaOmsApi, true) }}:    
     # - job: pndemeaOmsApi
     #   displayName: pndemeaOmsApiJob
     #   steps:
