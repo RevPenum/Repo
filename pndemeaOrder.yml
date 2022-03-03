@@ -1,4 +1,7 @@
-script : echo "hi this is rev"
+jobs : 
+ -job : 
+  steps :
+  - script : echo "hi this is rev"
 
 # # Maven
 
