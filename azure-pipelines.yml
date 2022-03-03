@@ -33,28 +33,19 @@ parameters:
   type: boolean
   default: false 
 
-stages:
-  - stage : QA 
-    jobs:
-        - job : qa_build
-          displayName : qa_build
-          steps:
-          - script: echo "going to condition"
-      
-         
-    
-        
-          
+# stages:
+#   - stage : QA 
+jobs:
+- job : qa_build
+  displayName : qa_build
+  steps:
+          - script: echo "going to condition"  
+          - ${{ if contains(parameters.pndemeaorder, true) }}:   
         #  - script : |
         #      echo building $(qa_build.BuildNumber) with ${{parameters.Region}}
 
-        - ${{ if contains(parameters.pndemeaOrder, 'true') }}:   
-        
-        - job: pndemeaOrder
-          displayName: pndemeaOrderJob
-          steps:
           - script: echo "Runnning pndemea-order" 
-        - template: pndemeaOrder.yml 
+          - template: pndemeaOrder.yml 
       
     #     - ${{ if contains(parameters.pndemeaOmsApi, true) }}:    
     # - job: pndemeaOmsApi
