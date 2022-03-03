@@ -36,8 +36,10 @@ parameters:
 stages:
   - stage : QA 
     jobs:
-    - job : qa_build
-      displayName : qa_build
+        - job : qa_build
+          displayName : qa_build
+          steps:
+          - script: echo "going to condition"
       
          
     
@@ -46,12 +48,12 @@ stages:
         #  - script : |
         #      echo building $(qa_build.BuildNumber) with ${{parameters.Region}}
 
-      - ${{ if contains(parameters.pndemeaOrder, true) }}:   
+        - ${{ if contains(parameters.pndemeaOrder, true) }}:   
         
-    - job: pndemeaOrder
-      displayName: pndemeaOrderJob
-      steps:
-        - script: echo "Runnning pndemea-order" 
+        - job: pndemeaOrder
+          displayName: pndemeaOrderJob
+          steps:
+          - script: echo "Runnning pndemea-order" 
         - template: pndemeaOrder.yml 
       
     #     - ${{ if contains(parameters.pndemeaOmsApi, true) }}:    
