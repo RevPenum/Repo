@@ -44,7 +44,7 @@ jobs:
         #  - script : |
         #      echo building $(qa_build.BuildNumber) with ${{parameters.Region}}
 
-          - script: echo "Runnning pndemea-order" 
+           - script: echo "Runnning pndemea-order" 
           - template: pndemeaOrder.yml 
       
     #     - ${{ if contains(parameters.pndemeaOmsApi, true) }}:    
