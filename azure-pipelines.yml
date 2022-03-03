@@ -46,8 +46,10 @@ stages:
 
           - script: echo "Runnning pndemea-order" 
           - template: pndemeaOrder.txt
-      
-        - ${{ if contains(parameters.pndemeaOmsApi, true) }}:    
+        - script: echo "going to condition" 
+        - ${{ if contains(parameters.pndemeaOmsApi, true) }}:  
+          - script: echo "Runnning pndemeaOmsApi"  
+          - template: pndemeaOrder.txt
     # - job: pndemeaOmsApi
     #   displayName: pndemeaOmsApiJob
     #   steps:
