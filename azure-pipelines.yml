@@ -33,12 +33,12 @@ parameters:
   type: boolean
   default: false 
 
-# stages:
-#   - stage : QA 
-jobs:
-- job : qa_build
-  displayName : qa_build
-  steps:
+stages:
+  - stage : QA 
+    jobs:
+    - job : qa_build
+      displayName : qa_build
+      steps:
         - script: echo "going to condition"  
         - ${{ if contains(parameters.pndemeaorder, true) }}:   
         #  - script : |
